@@ -1,0 +1,96 @@
+
+body{
+  margin: 0;
+  background-color: #F8F9F9;
+}
+
+header{
+  float: left;
+  width: 100%;
+  min-width: 360px;
+  height: 50px;
+  margin: 0 auto;
+  background-color: black;
+}
+
+header .nav-bar {
+  overflow: hidden;
+  background-color: black;
+  z-index: 100;    /*prevent over position*/
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0;          /* Position the navbar at the top of the page */
+  width: 100%;     /* Full width */
+  height: 50px;
+  border-radius: 0px 0px 5px 5px;
+  opacity: .8;
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+
+.nav-bar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+/* Change background on mouse-over */
+.nav-bar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+.image-header img{
+  margin-top: auto;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  /*min-width: 768px;*/
+}
+
+
+.personalInf{
+  background-color: transparent;
+  text-align: center;
+  
+}
+
+section{
+  padding-top:    5vh;
+  padding-bottom: 5vh;
+}
+
+section h1{
+  text-align: center;
+
+  margin-top: 30px;
+  /*font-family: Palatino Linotype;*/
+  /*font-family: Garamond, serif;*/
+  /*font-family: 'Tangerine', serif;*/
+  font-family: 'Raleway', sans-serif;
+  font-weight: 298;
+  font-size: 4em;
+  background-color: transparent;
+
+}
+
+section .pInfo{
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+
+
+footer{
+  color: whitesmoke;
+  background-color: black;
+  width: 100%;
+  height: 150px;
+
+}
