@@ -4,7 +4,7 @@ body{
   background-color: #F8F9F9;
 }
 
-header{
+nav{
   float: left;
   width: 100%;
   min-width: 360px;
@@ -13,7 +13,9 @@ header{
   background-color: black;
 }
 
-header .nav-bar {
+
+
+nav .nav-bar {
   overflow: hidden;
   background-color: black;
   z-index: 100;    /*prevent over position*/
@@ -46,6 +48,7 @@ header .nav-bar {
 
 .image-header img{
   margin-top: auto;
+  margin-bottom: 0px;
   width: 100%;
   height: 100vh;
   margin: 0;
@@ -53,21 +56,35 @@ header .nav-bar {
 }
 
 
+
 .personalInf{
   background-color: transparent;
   text-align: center;
-  
 }
+
+
 
 section{
-  padding-top:    5vh;
-  padding-bottom: 5vh;
+  /*padding-top:    5vh;
+  padding-bottom: 5vh;*/
+  height: 80vh;
+  /*border-radius: 15px;*/
+
+  /*margin: 5vh auto;*/
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
 }
 
-section h1{
-  text-align: center;
 
-  margin-top: 30px;
+section article{
+  margin: 0 auto;
+}
+
+
+
+
+article h1{
+  text-align: center;
+  margin-top: 0;
   /*font-family: Palatino Linotype;*/
   /*font-family: Garamond, serif;*/
   /*font-family: 'Tangerine', serif;*/
@@ -75,15 +92,26 @@ section h1{
   font-weight: 298;
   font-size: 4em;
   background-color: transparent;
-
 }
 
-section .pInfo{
+#personalInfo{
+  background-color: #35283c;
+}
+
+article .pInfo{
   width: 80%;
   text-align: center;
   margin: 0 auto;
 }
 
+
+#secondInfo{
+  background-color: blueviolet;
+}
+
+#thirdInfo{
+  background-color: seagreen;
+}
 
 
 
@@ -91,6 +119,7 @@ footer{
   color: whitesmoke;
   background-color: black;
   width: 100%;
-  height: 150px;
+  height: 20vh;
+  
 
 }
