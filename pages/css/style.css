@@ -1,0 +1,154 @@
+@import url(https://fonts.googleapis.com/css?family=EB+Garamond|Droid+Serif|Playfair+Display|Open+Sans+Condensed:300);
+
+body{
+  margin: 0;
+  background-color: #F8F9F9;
+  font-size: 1.2em;
+  font-family: Palatino Linotype;
+  /*font-family: Garamond, serif;*/
+  /*font-family: 'Tangerine', serif;*/
+}
+
+nav{
+  /*float: left;*/
+  width: 100%;
+  min-width: 320px;
+  height: auto;
+  margin: 0 auto;
+  background-color: #292a2b;
+  margin-bottom: 15px;
+}
+
+
+
+#quote h1{
+  font-family: 'EB Garamond';
+  text-align: center;
+  color: white;
+  margin:0 auto ;
+  padding-top: 100px;
+}
+
+#quote h4 {
+    position: relative;
+    text-align: right;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    padding-top: 15px;
+    z-index: 1;
+    margin-left:150px;
+    padding-left:12px;
+    padding-right:12px;
+    padding-bottom: 15px;
+}
+
+
+nav .nav-bar {
+  overflow: hidden;
+  background-color: black;
+  z-index: 100;    /*prevent over position*/
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0;          /* Position the navbar at the top of the page */
+  width: 100%;     /* Full width */
+  height: 60px;
+  border-radius: 0px 0px 5px 5px;
+  opacity: .8;
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+
+.nav-bar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: 'Quicksand', sans-serif;
+
+}
+
+main{
+  margin-top: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 50vh;
+
+}
+
+main h1{
+  margin-top: 10px;
+}
+
+img{
+  width: 100%;
+  
+}
+
+.image{
+  text-align: left;
+  
+  /*width: 280px;*/
+}
+
+#article{
+  width: 55%;
+  margin: 0 auto;
+}
+#skills{
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+#skills button{
+  text-align: center  ;
+  float: left;
+  background-color: #04AA6D;
+  color: black;
+  font-size: 30px;
+  border-radius: 5px;
+  margin: 3px;
+  border: 2px solid #04AA6D; /* Green */
+}
+
+#skills a{
+  text-align: center  ;
+  float: left;
+  background-color: #04AA6D;
+  color: black;
+  font-size: 30px;
+  border-radius: 5px;
+  margin: 3px;
+  border: 2px solid #04AA6D; /* Green */
+}
+
+
+#blanckS{
+  height: 15vh;
+}
+
+footer{
+  margin-top: 5vh;
+  color: whitesmoke;
+  background-color: #292a2b;
+  width: 100%;
+  height: 200px;
+  border-radius: 3px 3px 0px 0px;
+}
+
+
+footer h1{
+  margin-top: 0;
+}
+
+footer div{
+  text-align: left;
+  padding-top: 5px;
+  width: 60%;
+  margin: 0 auto;
+}
