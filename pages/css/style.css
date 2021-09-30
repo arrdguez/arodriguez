@@ -101,20 +101,11 @@ img{
 }
 #skills{
   text-align: center;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   margin-bottom: 12px;
 }
 
-#skills button{
-  text-align: center  ;
-  float: left;
-  background-color: #04AA6D;
-  color: black;
-  font-size: 30px;
-  border-radius: 5px;
-  margin: 3px;
-  border: 2px solid #04AA6D; /* Green */
-}
+
 
 #skills a{
   text-align: center  ;
@@ -123,6 +114,7 @@ img{
   color: black;
   font-size: 30px;
   border-radius: 5px;
+  padding: 5px;
   margin: 3px;
   border: 2px solid #04AA6D; /* Green */
 }
