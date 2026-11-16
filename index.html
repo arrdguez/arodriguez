@@ -1,97 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alejandro Rodríguez — Science × Code</title>
+  <meta name="description" content="Alejandro Rodríguez — materials physicist turned API designer. Science, code, data and fintech.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-
-
-  <body>
- 
-
-
-    <nav>
-      <div class="nav-bar">
-        <a href="#quote">Home</a>
-        <a href="./pages/index.html">Science Life</a>
-        <a href="#contact">Contact</a>
-        <br>
-      </div>
-
-      <div id="quote">
-        <h1>Nothing is enough for the man to whom enough is too little.</h1>
-        <h4>&mdash;Epicurus</h4>
-      </div>
-    </nav>
-
-
-
-    <main>
-      <div>
-        <h1>Alejandro Rodríguez</h1>
-      </div>
-
-      <div class="image">
-        <img src="./img/image12.jpg">
-      </div>
-    </main>
-
-
-    <div class="blanckS">
+  <nav class="nav" aria-label="Primary">
+    <a class="nav-brand mono" href="#top">ar<span class="accent">·</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#worlds">Worlds</a>
+      <a href="#projects">Projects</a>
+      <a href="#interests">Interests</a>
+      <a href="#contact">Contact</a>
     </div>
+  </nav>
 
-    <div id="article">
-      <article>
-        <h4>Welcome to my personal web!</h4>
-        <p>
-          My name is Alejandro Rodriguez and I hold a PhD in Advanced Technologies. In my professional life I collaborated in design and develop code for numerical calculus, desktop application and API design. I like dive in new tech, in this direction I had playing in the field of Technical Analisis, WEB3, Smart Contracts, Block Chain and so on. 
+  <header class="hero" id="top">
+    <p class="eyebrow mono reveal">// Alejandro Rodríguez · PhD</p>
+    <h1 class="hero-title reveal">Alejandro<br><span class="grad">Rodríguez</span></h1>
+    <p class="hero-sub reveal">
+      Materials physicist building fintech APIs.<br>
+      I work where hard science meets working software.
+    </p>
+    <div class="spectrum reveal" aria-hidden="true"></div>
+    <div class="hero-tags mono reveal">
+      <span>API Design</span>
+      <span>Data Science</span>
+      <span>Fintech</span>
+      <span>Materials Science</span>
+      <span>Blockchain</span>
+    </div>
+  </header>
 
-          I currently have a postdoctoral position, teaching Statistic. I am a math and technology lover. 
-          <br>
-          I am empathic
-          <br>
-          
+  <main>
+    <section id="about" class="section">
+      <p class="eyebrow mono reveal">01 — About</p>
+      <h2 class="reveal">A scientist who ships.</h2>
+      <div class="about-grid">
+        <p class="reveal">
+          I hold a <strong>PhD in Advanced Technologies</strong> and spent years in the lab —
+          spectroscopy, magnetometry and computational materials science. That training gave me
+          a permanent taste for rigor: model it, measure it, and don't believe a number until it
+          survives a second look.
         </p>
-        <br>
-        <br>
-        <h4>Skills!</h4>
-
-        <div id="skills">
-          <a>C</a>
-          <a>C++</a>
-          <a>Qt</a>
-          <a>Python</a>
-          <a>HTML</a>
-          <a>CSS</a>
-          <a>RESTFUL API DESIGN</a>
-          <a>UML</a>
-          <br>
-        </div>
-      </article>
-    
-
-    </div>
-    <div class="blanckS">
-    </div>
-
-
-    <footer>
-      <div id="contact">
-        <h4>
-          Contact detail:
-        </h4>
-        Alejandro Rodríguez Rodríguez
-        <br>
-        Email: alerrdguez88@gmail.com
-        <br>
-        Mexico City
+        <p class="reveal">
+          Today I design <strong>APIs at BBVA</strong>, working across data science, macroeconomics
+          and blockchain. I move between two languages — the language of physics and the language
+          of production software — and enjoy translating one into the other.
+        </p>
       </div>
-    </footer>
+      <figure class="quote reveal">
+        <blockquote>“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.”</blockquote>
+        <figcaption class="mono">— Richard Feynman</figcaption>
+      </figure>
+    </section>
 
-  </body>
+    <section id="worlds" class="section">
+      <p class="eyebrow mono reveal">02 — Two worlds</p>
+      <h2 class="reveal">One spectrum, two ends.</h2>
+      <div class="worlds">
+        <article class="world reveal">
+          <h3 class="mono world-label">Science life</h3>
+          <ul class="world-list">
+            <li>Infrared, UV-Vis &amp; Raman spectroscopy</li>
+            <li>XPS &amp; Mössbauer spectroscopy</li>
+            <li>Magnetometry</li>
+            <li>DFT &amp; materials modeling (CASTEP)</li>
+            <li>Monte Carlo — Ising model</li>
+          </ul>
+        </article>
+        <div class="world-divider" aria-hidden="true"></div>
+        <article class="world reveal">
+          <h3 class="mono world-label">Code life</h3>
+          <ul class="world-list">
+            <li>RESTful API design (RAML · OpenAPI)</li>
+            <li>Python · C++ · Qt</li>
+            <li>Data science &amp; statistics</li>
+            <li>Quantitative trading &amp; fintech</li>
+            <li>Blockchain &amp; web3</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <p class="eyebrow mono reveal">03 — Selected work</p>
+      <h2 class="reveal">Things I've built.</h2>
+      <div class="projects">
+
+        <a class="card reveal" href="https://github.com/arrdguez/3D_isin_model" target="_blank" rel="noopener">
+          <span class="card-cat mono">science</span>
+          <h3>3D Ising Model</h3>
+          <p>Monte Carlo simulation of magnetic phase transitions.</p>
+          <span class="card-lang mono">C++</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/castep_stuff" target="_blank" rel="noopener">
+          <span class="card-cat mono">science</span>
+          <h3>CASTEP Notes</h3>
+          <p>DFT calculations and materials modeling workflows.</p>
+          <span class="card-lang mono">DFT</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/Squeeze_Momentum_Indicator" target="_blank" rel="noopener">
+          <span class="card-cat mono">fintech</span>
+          <h3>Squeeze Momentum</h3>
+          <p>LazyBear's squeeze momentum indicator for trading.</p>
+          <span class="card-lang mono">Python</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/the-back-test" target="_blank" rel="noopener">
+          <span class="card-cat mono">fintech</span>
+          <h3>Backtesting</h3>
+          <p>Web-based backtesting of trading strategies.</p>
+          <span class="card-lang mono">JS</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/binanceDownload" target="_blank" rel="noopener">
+          <span class="card-cat mono">fintech</span>
+          <h3>Binance Download</h3>
+          <p>Tooling to pull market data from Binance.</p>
+          <span class="card-lang mono">Python</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/Joseki" target="_blank" rel="noopener">
+          <span class="card-cat mono">go</span>
+          <h3>Joseki</h3>
+          <p>Exploring corner patterns in the game of Go.</p>
+          <span class="card-lang mono">Python</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/Sabaki_sensei" target="_blank" rel="noopener">
+          <span class="card-cat mono">go</span>
+          <h3>Sabaki Sensei</h3>
+          <p>Go board / SGF editor with a teaching mode.</p>
+          <span class="card-lang mono">Go</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/pJardin-Solar-ESP32" target="_blank" rel="noopener">
+          <span class="card-cat mono">iot</span>
+          <h3>Solar Garden ESP32</h3>
+          <p>Solar-powered IoT garden project on ESP32.</p>
+          <span class="card-lang mono">C++</span>
+        </a>
+
+        <a class="card reveal" href="https://github.com/arrdguez/config-files" target="_blank" rel="noopener">
+          <span class="card-cat mono">systems</span>
+          <h3>Dotfiles</h3>
+          <p>Debian configuration and shell environment.</p>
+          <span class="card-lang mono">Shell</span>
+        </a>
+
+      </div>
+      <p class="reveal more">
+        <a class="mono" href="https://github.com/arrdguez" target="_blank" rel="noopener">See everything on GitHub →</a>
+      </p>
+    </section>
+
+    <section id="interests" class="section">
+      <p class="eyebrow mono reveal">04 — Interests</p>
+      <h2 class="reveal">What keeps me curious.</h2>
+      <div class="chips reveal">
+        <span class="chip">Fintech</span>
+        <span class="chip">Data Science</span>
+        <span class="chip">Blockchain</span>
+        <span class="chip">Macroeconomics</span>
+        <span class="chip">Computational Science</span>
+        <span class="chip">Go</span>
+        <span class="chip">IoT &amp; ESP32</span>
+        <span class="chip">Linux &amp; dotfiles</span>
+        <span class="chip">LLMs &amp; agents</span>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer">
+    <p class="eyebrow mono reveal">05 — Contact</p>
+    <h2 class="reveal">Let's talk.</h2>
+    <div class="footer-links reveal">
+      <a class="mono" href="https://github.com/arrdguez" target="_blank" rel="noopener">github.com/arrdguez</a>
+      <a class="mono" href="./files/Alejandro%20Rodriguez%20CV.pdf" target="_blank" rel="noopener">Download CV</a>
+    </div>
+    <div class="spectrum reveal" aria-hidden="true"></div>
+    <p class="footer-note mono">© Alejandro Rodríguez — science × code</p>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
 </html>
