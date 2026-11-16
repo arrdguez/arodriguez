@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alejandro Rodríguez — Science × Code</title>
   <meta name="description" content="Alejandro Rodríguez — materials physicist turned API designer. Science, code, data and fintech.">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+      var l = localStorage.getItem("lang");
+      if (!l) l = (navigator.language || "en").slice(0, 2) === "es" ? "es" : "en";
+      document.documentElement.setAttribute("lang", l);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,182 +25,181 @@
   <nav class="nav" aria-label="Primary">
     <a class="nav-brand mono" href="#top">ar<span class="accent">·</span></a>
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#worlds">Worlds</a>
-      <a href="#projects">Projects</a>
-      <a href="#interests">Interests</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#worlds" data-i18n="nav.worlds">Worlds</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#interests" data-i18n="nav.interests">Interests</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </div>
+    <div class="nav-controls">
+      <button class="theme-toggle" id="themeToggle" type="button" data-i18n-aria="theme.toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="es">ES</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" data-lang="en">EN</button>
+      </div>
     </div>
   </nav>
 
   <header class="hero" id="top">
-    <p class="eyebrow mono reveal">// Alejandro Rodríguez · PhD</p>
+    <p class="eyebrow mono reveal" data-i18n="hero.eyebrow">// Alejandro Rodríguez · PhD</p>
     <h1 class="hero-title reveal">Alejandro<br><span class="grad">Rodríguez</span></h1>
-    <p class="hero-sub reveal">
-      Materials physicist building fintech APIs.<br>
-      I work where hard science meets working software.
-    </p>
+    <p class="hero-sub reveal" data-i18n-html="hero.sub">Materials physicist building fintech APIs.<br>I work where hard science meets working software.</p>
     <div class="spectrum reveal" aria-hidden="true"></div>
     <div class="hero-tags mono reveal">
-      <span>API Design</span>
-      <span>Data Science</span>
-      <span>Fintech</span>
-      <span>Materials Science</span>
-      <span>Blockchain</span>
+      <span data-i18n="hero.tag1">API Design</span>
+      <span data-i18n="hero.tag2">Data Science</span>
+      <span data-i18n="hero.tag3">Fintech</span>
+      <span data-i18n="hero.tag4">Materials Science</span>
+      <span data-i18n="hero.tag5">Blockchain</span>
     </div>
   </header>
 
   <main>
     <section id="about" class="section">
-      <p class="eyebrow mono reveal">01 — About</p>
-      <h2 class="reveal">A scientist who ships.</h2>
+      <p class="eyebrow mono reveal" data-i18n="about.eyebrow">01 — About</p>
+      <h2 class="reveal" data-i18n="about.title">A scientist who ships.</h2>
       <div class="about-grid">
-        <p class="reveal">
-          I hold a <strong>PhD in Advanced Technologies</strong> and spent years in the lab —
-          spectroscopy, magnetometry and computational materials science. That training gave me
-          a permanent taste for rigor: model it, measure it, and don't believe a number until it
-          survives a second look.
-        </p>
-        <p class="reveal">
-          Today I design <strong>APIs at BBVA</strong>, working across data science, macroeconomics
-          and blockchain. I move between two languages — the language of physics and the language
-          of production software — and enjoy translating one into the other.
-        </p>
+        <p class="reveal" data-i18n-html="about.p1">I hold a <strong>PhD in Advanced Technologies</strong> and spent years in the lab — spectroscopy, magnetometry and computational materials science. That training gave me a permanent taste for rigor: model it, measure it, and don't believe a number until it survives a second look.</p>
+        <p class="reveal" data-i18n-html="about.p2">Today I design <strong>APIs at BBVA</strong>, working across data science, macroeconomics and blockchain. I move between two languages — the language of physics and the language of production software — and enjoy translating one into the other.</p>
       </div>
       <figure class="quote reveal">
-        <blockquote>“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.”</blockquote>
+        <blockquote data-i18n="about.quote">“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.”</blockquote>
         <figcaption class="mono">— Richard Feynman</figcaption>
       </figure>
     </section>
 
     <section id="worlds" class="section">
-      <p class="eyebrow mono reveal">02 — Two worlds</p>
-      <h2 class="reveal">One spectrum, two ends.</h2>
+      <p class="eyebrow mono reveal" data-i18n="worlds.eyebrow">02 — Two worlds</p>
+      <h2 class="reveal" data-i18n="worlds.title">One spectrum, two ends.</h2>
       <div class="worlds">
         <article class="world reveal">
-          <h3 class="mono world-label">Science life</h3>
+          <h3 class="mono world-label" data-i18n="worlds.science">Science life</h3>
           <ul class="world-list">
-            <li>Infrared, UV-Vis &amp; Raman spectroscopy</li>
-            <li>XPS &amp; Mössbauer spectroscopy</li>
-            <li>Magnetometry</li>
-            <li>DFT &amp; materials modeling (CASTEP)</li>
-            <li>Monte Carlo — Ising model</li>
+            <li data-i18n="worlds.s1">Infrared, UV-Vis &amp; Raman spectroscopy</li>
+            <li data-i18n="worlds.s2">XPS &amp; Mössbauer spectroscopy</li>
+            <li data-i18n="worlds.s3">Magnetometry</li>
+            <li data-i18n="worlds.s4">DFT &amp; materials modeling (CASTEP)</li>
+            <li data-i18n="worlds.s5">Monte Carlo — Ising model</li>
           </ul>
         </article>
         <div class="world-divider" aria-hidden="true"></div>
         <article class="world reveal">
-          <h3 class="mono world-label">Code life</h3>
+          <h3 class="mono world-label" data-i18n="worlds.code">Code life</h3>
           <ul class="world-list">
-            <li>RESTful API design (RAML · OpenAPI)</li>
-            <li>Python · C++ · Qt</li>
-            <li>Data science &amp; statistics</li>
-            <li>Quantitative trading &amp; fintech</li>
-            <li>Blockchain &amp; web3</li>
+            <li data-i18n="worlds.c1">RESTful API design (RAML · OpenAPI)</li>
+            <li data-i18n="worlds.c2">Python · C++ · Qt</li>
+            <li data-i18n="worlds.c3">Data science &amp; statistics</li>
+            <li data-i18n="worlds.c4">Quantitative trading &amp; fintech</li>
+            <li data-i18n="worlds.c5">Blockchain &amp; web3</li>
           </ul>
         </article>
       </div>
     </section>
 
     <section id="projects" class="section">
-      <p class="eyebrow mono reveal">03 — Selected work</p>
-      <h2 class="reveal">Things I've built.</h2>
+      <p class="eyebrow mono reveal" data-i18n="projects.eyebrow">03 — Selected work</p>
+      <h2 class="reveal" data-i18n="projects.title">Things I've built.</h2>
       <div class="projects">
 
         <a class="card reveal" href="https://github.com/arrdguez/3D_isin_model" target="_blank" rel="noopener">
-          <span class="card-cat mono">science</span>
+          <span class="card-cat mono" data-i18n="cat.science">science</span>
           <h3>3D Ising Model</h3>
-          <p>Monte Carlo simulation of magnetic phase transitions.</p>
+          <p data-i18n="p.1">Monte Carlo simulation of magnetic phase transitions.</p>
           <span class="card-lang mono">C++</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/castep_stuff" target="_blank" rel="noopener">
-          <span class="card-cat mono">science</span>
+          <span class="card-cat mono" data-i18n="cat.science">science</span>
           <h3>CASTEP Notes</h3>
-          <p>DFT calculations and materials modeling workflows.</p>
+          <p data-i18n="p.2">DFT calculations and materials modeling workflows.</p>
           <span class="card-lang mono">DFT</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/Squeeze_Momentum_Indicator" target="_blank" rel="noopener">
-          <span class="card-cat mono">fintech</span>
+          <span class="card-cat mono" data-i18n="cat.fintech">fintech</span>
           <h3>Squeeze Momentum</h3>
-          <p>LazyBear's squeeze momentum indicator for trading.</p>
+          <p data-i18n="p.3">LazyBear's squeeze momentum indicator for trading.</p>
           <span class="card-lang mono">Python</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/the-back-test" target="_blank" rel="noopener">
-          <span class="card-cat mono">fintech</span>
+          <span class="card-cat mono" data-i18n="cat.fintech">fintech</span>
           <h3>Backtesting</h3>
-          <p>Web-based backtesting of trading strategies.</p>
+          <p data-i18n="p.4">Web-based backtesting of trading strategies.</p>
           <span class="card-lang mono">JS</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/binanceDownload" target="_blank" rel="noopener">
-          <span class="card-cat mono">fintech</span>
+          <span class="card-cat mono" data-i18n="cat.fintech">fintech</span>
           <h3>Binance Download</h3>
-          <p>Tooling to pull market data from Binance.</p>
+          <p data-i18n="p.5">Tooling to pull market data from Binance.</p>
           <span class="card-lang mono">Python</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/Joseki" target="_blank" rel="noopener">
-          <span class="card-cat mono">go</span>
+          <span class="card-cat mono" data-i18n="cat.go">go</span>
           <h3>Joseki</h3>
-          <p>Exploring corner patterns in the game of Go.</p>
+          <p data-i18n="p.6">Exploring corner patterns in the game of Go.</p>
           <span class="card-lang mono">Python</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/Sabaki_sensei" target="_blank" rel="noopener">
-          <span class="card-cat mono">go</span>
+          <span class="card-cat mono" data-i18n="cat.go">go</span>
           <h3>Sabaki Sensei</h3>
-          <p>Go board / SGF editor with a teaching mode.</p>
+          <p data-i18n="p.7">Go board / SGF editor with a teaching mode.</p>
           <span class="card-lang mono">Go</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/pJardin-Solar-ESP32" target="_blank" rel="noopener">
-          <span class="card-cat mono">iot</span>
+          <span class="card-cat mono" data-i18n="cat.iot">iot</span>
           <h3>Solar Garden ESP32</h3>
-          <p>Solar-powered IoT garden project on ESP32.</p>
+          <p data-i18n="p.8">Solar-powered IoT garden project on ESP32.</p>
           <span class="card-lang mono">C++</span>
         </a>
 
         <a class="card reveal" href="https://github.com/arrdguez/config-files" target="_blank" rel="noopener">
-          <span class="card-cat mono">systems</span>
+          <span class="card-cat mono" data-i18n="cat.systems">systems</span>
           <h3>Dotfiles</h3>
-          <p>Debian configuration and shell environment.</p>
+          <p data-i18n="p.9">Debian configuration and shell environment.</p>
           <span class="card-lang mono">Shell</span>
         </a>
 
       </div>
       <p class="reveal more">
-        <a class="mono" href="https://github.com/arrdguez" target="_blank" rel="noopener">See everything on GitHub →</a>
+        <a class="mono" href="https://github.com/arrdguez" target="_blank" rel="noopener" data-i18n="projects.more">See everything on GitHub →</a>
       </p>
     </section>
 
     <section id="interests" class="section">
-      <p class="eyebrow mono reveal">04 — Interests</p>
-      <h2 class="reveal">What keeps me curious.</h2>
+      <p class="eyebrow mono reveal" data-i18n="interests.eyebrow">04 — Interests</p>
+      <h2 class="reveal" data-i18n="interests.title">What keeps me curious.</h2>
       <div class="chips reveal">
-        <span class="chip">Fintech</span>
-        <span class="chip">Data Science</span>
-        <span class="chip">Blockchain</span>
-        <span class="chip">Macroeconomics</span>
-        <span class="chip">Computational Science</span>
-        <span class="chip">Go</span>
-        <span class="chip">IoT &amp; ESP32</span>
-        <span class="chip">Linux &amp; dotfiles</span>
-        <span class="chip">LLMs &amp; agents</span>
+        <span class="chip" data-i18n="interests.1">Fintech</span>
+        <span class="chip" data-i18n="interests.2">Data Science</span>
+        <span class="chip" data-i18n="interests.3">Blockchain</span>
+        <span class="chip" data-i18n="interests.4">Macroeconomics</span>
+        <span class="chip" data-i18n="interests.5">Computational Science</span>
+        <span class="chip" data-i18n="interests.6">Go</span>
+        <span class="chip" data-i18n="interests.7">IoT &amp; ESP32</span>
+        <span class="chip" data-i18n="interests.8">Linux &amp; dotfiles</span>
+        <span class="chip" data-i18n="interests.9">LLMs &amp; agents</span>
       </div>
     </section>
   </main>
 
   <footer id="contact" class="footer">
-    <p class="eyebrow mono reveal">05 — Contact</p>
-    <h2 class="reveal">Let's talk.</h2>
+    <p class="eyebrow mono reveal" data-i18n="contact.eyebrow">05 — Contact</p>
+    <h2 class="reveal" data-i18n="contact.title">Let's talk.</h2>
     <div class="footer-links reveal">
       <a class="mono" href="https://github.com/arrdguez" target="_blank" rel="noopener">github.com/arrdguez</a>
-      <a class="mono" href="./files/Alejandro%20Rodriguez%20CV.pdf" target="_blank" rel="noopener">Download CV</a>
+      <a class="mono" href="./files/Alejandro%20Rodriguez%20CV.pdf" target="_blank" rel="noopener" data-i18n="contact.cv">Download CV</a>
     </div>
     <div class="spectrum reveal" aria-hidden="true"></div>
-    <p class="footer-note mono">© Alejandro Rodríguez — science × code</p>
+    <p class="footer-note mono" data-i18n="contact.note">© Alejandro Rodríguez — science × code</p>
   </footer>
 
   <script src="./js/main.js"></script>
