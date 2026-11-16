@@ -347,6 +347,37 @@ a {
 }
 
 /* ---------- Projects ---------- */
+.wip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.75rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--violet);
+  border-radius: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.wip:hover {
+  transform: translateY(-3px);
+  border-color: var(--amber);
+}
+
+.wip h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.wip p {
+  color: var(--muted);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  max-width: 46rem;
+}
+
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
