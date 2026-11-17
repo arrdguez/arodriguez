@@ -33,6 +33,14 @@ const translations = {
     "worlds.c3": "Data science & statistics",
     "worlds.c4": "Quantitative trading & fintech",
     "worlds.c5": "Blockchain & web3",
+    "sco.eyebrow": "Interactive — Spin crossover",
+    "sco.title": "Fe(II): high spin ↔ low spin",
+    "sco.desc": "Drag the Fe–N distance to see how the ligand field drives the spin transition. Raise the temperature to soften the switch.",
+    "sco.r": "r / r₀",
+    "sco.labelR": "Fe–N distance",
+    "sco.labelT": "Temperature",
+    "sco.play": "Play",
+    "sco.pause": "Pause",
     "projects.eyebrow": "03 — Selected work",
     "projects.title": "Things I've built.",
     "wip.label": "work in progress",
@@ -106,8 +114,18 @@ const translations = {
     "worlds.c3": "Ciencia de datos y estadística",
     "worlds.c4": "Trading cuantitativo y fintech",
     "worlds.c5": "Blockchain y web3",
+    "sco.eyebrow": "Interactivo — Spin crossover",
+    "sco.title": "Fe(II): alto espín ↔ bajo espín",
+    "sco.desc": "Mueve la distancia Fe–N para ver cómo el campo de ligandos provoca la transición de espín. Sube la temperatura para suavizar el cambio.",
+    "sco.r": "r / r₀",
+    "sco.labelR": "Distancia Fe–N",
+    "sco.labelT": "Temperatura",
+    "sco.play": "Play",
+    "sco.pause": "Pausa",
     "projects.eyebrow": "03 — Trabajo seleccionado",
     "projects.title": "Cosas que he construido.",
+    "wip.label": "trabajo en curso",
+    "wip.desc": "Modelo mínimo de la transición de espín de Fe(II): el campo de ligandos Dq(r) provoca el cruce HS↔LS, muestreado con Monte Carlo a temperatura finita. Siguiente paso — cooperatividad para histéresis de primer orden.",
     "cat.science": "ciencia",
     "cat.fintech": "fintech",
     "cat.go": "go",
@@ -172,6 +190,8 @@ function applyLang(lang) {
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
   });
+
+  setScoPlayLabel();
 }
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -210,4 +230,286 @@ document.querySelectorAll(".lang-switch button").forEach((btn) => {
   });
 });
 
+/* ============================================================
+   Spin crossover — interactive model
+   ============================================================ */
+const SCO = {
+  Dq0: 1500,
+  P: 20000,
+  kB: 0.695,
+  xMin: 0.85,
+  xMax: 1.35,
+  xc: Math.pow((20 * 1500) / 20000, 1 / 5)
+};
+
+let scoX = SCO.xc;
+let scoT = 300;
+let scoPlaying = false;
+let scoRaf = null;
+let scoT0 = 0;
+
+const NS = "http://www.w3.org/2000/svg";
+
+function svgEl(tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+function computeSco(x, T) {
+  const Dq = SCO.Dq0 * Math.pow(x, -5);
+  const dO = 10 * Dq;
+  const dE = 20 * Dq - SCO.P;
+  const expArg = dE / (SCO.kB * T);
+  const nHS = 1 / (1 + Math.exp(Math.min(expArg, 700)));
+  return { Dq, dO, dE, nHS };
+}
+
+/* ----- orbital diagram ----- */
+const ORB = { centerY: 140, egs: [95, 165], t2gs: [60, 130, 200] };
+const orb = { lines: [], hsTexts: [], lsTexts: [], egLabel: null, t2gLabel: null, doLine: null, doLabel: null };
+
+function buildOrbitals() {
+  const svg = document.getElementById("scoOrbitals");
+
+  const egLabel = svgEl("text", { x: 26, y: 0, "text-anchor": "middle", "font-size": 13 });
+  egLabel.style.fill = "var(--muted)";
+  egLabel.textContent = "e_g";
+  svg.appendChild(egLabel);
+  orb.egLabel = egLabel;
+
+  const t2gLabel = svgEl("text", { x: 26, y: 0, "text-anchor": "middle", "font-size": 13 });
+  t2gLabel.style.fill = "var(--muted)";
+  t2gLabel.textContent = "t₂g";
+  svg.appendChild(t2gLabel);
+  orb.t2gLabel = t2gLabel;
+
+  const doLine = svgEl("line", { x1: 244, y1: 0, x2: 244, y2: 0 });
+  doLine.style.stroke = "var(--muted)";
+  doLine.setAttribute("stroke-dasharray", "3 3");
+  svg.appendChild(doLine);
+  orb.doLine = doLine;
+
+  const doLabel = svgEl("text", { x: 250, y: 0, "font-size": 12, "text-anchor": "start" });
+  doLabel.style.fill = "var(--muted)";
+  doLabel.textContent = "Δo";
+  svg.appendChild(doLabel);
+  orb.doLabel = doLabel;
+
+  const xs = [...ORB.egs, ...ORB.t2gs];
+  for (let i = 0; i < 5; i++) {
+    const line = svgEl("line", { x1: xs[i] - 20, y1: 0, x2: xs[i] + 20, y2: 0 });
+    line.style.stroke = "var(--muted)";
+    line.setAttribute("stroke-width", 2);
+    svg.appendChild(line);
+    orb.lines.push(line);
+  }
+
+  const hsCfg = [["↑"], ["↑"], ["↑", "↓"], ["↑"], ["↑"]];
+  const lsCfg = [[], [], ["↑", "↓"], ["↑", "↓"], ["↑", "↓"]];
+
+  function addElectrons(cfg, list, colorVar) {
+    cfg.forEach((arrows, i) => {
+      const cx = xs[i];
+      arrows.forEach((a, j) => {
+        const dx = arrows.length === 2 ? (j === 0 ? -7 : 7) : 0;
+        const t = svgEl("text", { x: cx + dx, y: 0, "text-anchor": "middle", "font-size": 16 });
+        t.setAttribute("font-family", "monospace");
+        t.textContent = a;
+        t.style.fill = colorVar;
+        svg.appendChild(t);
+        list.push({ el: t, i, dx });
+      });
+    });
+  }
+
+  addElectrons(hsCfg, orb.hsTexts, "var(--amber)");
+  addElectrons(lsCfg, orb.lsTexts, "var(--cyan)");
+}
+
+function renderOrbitals(Dq, nHS) {
+  const gap = Math.min(120, Math.max(30, 30 + 90 * (Dq / SCO.Dq0)));
+  const xs = [...ORB.egs, ...ORB.t2gs];
+
+  orb.lines.forEach((line, i) => {
+    const y = i < 2 ? ORB.centerY - gap / 2 : ORB.centerY + gap / 2;
+    line.setAttribute("y1", y);
+    line.setAttribute("y2", y);
+  });
+
+  orb.egLabel.setAttribute("y", ORB.centerY - gap / 2 + 4);
+  orb.t2gLabel.setAttribute("y", ORB.centerY + gap / 2 + 4);
+
+  const yTop = ORB.centerY - gap / 2;
+  const yBot = ORB.centerY + gap / 2;
+  orb.doLine.setAttribute("y1", yTop);
+  orb.doLine.setAttribute("y2", yBot);
+  orb.doLabel.setAttribute("y", (yTop + yBot) / 2 + 4);
+
+  [orb.hsTexts, orb.lsTexts].forEach((list, g) => {
+    list.forEach((item) => {
+      const isEg = item.i < 2;
+      const y = isEg ? yTop : yBot;
+      item.el.setAttribute("y", y - 12);
+      item.el.style.opacity = g === 0 ? nHS : 1 - nHS;
+    });
+  });
+
+  const stateEl = document.getElementById("scoState");
+  const hs = nHS >= 0.5;
+  stateEl.textContent = hs ? "HS · S = 2" : "LS · S = 0";
+  stateEl.style.color = hs ? "var(--amber)" : "var(--cyan)";
+}
+
+/* ----- energy diagram ----- */
+const PLOT = { left: 44, right: 332, top: 20, bottom: 206, Emin: -65000, Emax: 15000 };
+const en = { hsCurve: null, lsCurve: null, markerLine: null, markerDot: null };
+
+function ex(x) {
+  return PLOT.left + ((x - SCO.xMin) / (SCO.xMax - SCO.xMin)) * (PLOT.right - PLOT.left);
+}
+function ey(E) {
+  return PLOT.top + ((PLOT.Emax - E) / (PLOT.Emax - PLOT.Emin)) * (PLOT.bottom - PLOT.top);
+}
+function Ehs(x) { return -6000 * Math.pow(x, -5); }
+function Els(x) { return -36000 * Math.pow(x, -5) + 20000; }
+
+function buildEnergy() {
+  const svg = document.getElementById("scoEnergy");
+
+  const lsRect = svgEl("rect", {
+    x: ex(SCO.xMin), y: PLOT.top, width: ex(SCO.xc) - ex(SCO.xMin), height: PLOT.bottom - PLOT.top
+  });
+  lsRect.style.fill = "var(--cyan)";
+  lsRect.style.opacity = 0.06;
+  svg.appendChild(lsRect);
+
+  const hsRect = svgEl("rect", {
+    x: ex(SCO.xc), y: PLOT.top, width: ex(SCO.xMax) - ex(SCO.xc), height: PLOT.bottom - PLOT.top
+  });
+  hsRect.style.fill = "var(--amber)";
+  hsRect.style.opacity = 0.06;
+  svg.appendChild(hsRect);
+
+  const axis = svgEl("line", { x1: PLOT.left, y1: PLOT.bottom, x2: PLOT.right, y2: PLOT.bottom });
+  axis.style.stroke = "var(--muted)";
+  svg.appendChild(axis);
+
+  const xcLine = svgEl("line", { x1: ex(SCO.xc), y1: PLOT.top, x2: ex(SCO.xc), y2: PLOT.bottom });
+  xcLine.style.stroke = "var(--muted)";
+  xcLine.setAttribute("stroke-dasharray", "3 4");
+  svg.appendChild(xcLine);
+  const xcLabel = svgEl("text", { x: ex(SCO.xc) + 5, y: PLOT.top + 12, "font-size": 11 });
+  xcLabel.style.fill = "var(--muted)";
+  xcLabel.textContent = "r_c";
+  svg.appendChild(xcLabel);
+
+  const yLabel = svgEl("text", { x: 8, y: PLOT.top + 12, "font-size": 11 });
+  yLabel.style.fill = "var(--muted)";
+  yLabel.textContent = "E";
+  svg.appendChild(yLabel);
+
+  [0.9, 1.0, 1.1, 1.2, 1.3].forEach((v) => {
+    const t = svgEl("text", { x: ex(v), y: PLOT.bottom + 14, "text-anchor": "middle", "font-size": 10 });
+    t.style.fill = "var(--muted)";
+    t.textContent = v.toFixed(1);
+    svg.appendChild(t);
+  });
+
+  function curve(fn, colorVar) {
+    const p = svgEl("path", { fill: "none", "stroke-width": 2 });
+    p.style.stroke = colorVar;
+    let d = "";
+    for (let i = 0; i <= 80; i++) {
+      const x = SCO.xMin + ((SCO.xMax - SCO.xMin) * i) / 80;
+      d += (i ? "L" : "M") + ex(x).toFixed(1) + " " + ey(fn(x)).toFixed(1);
+    }
+    p.setAttribute("d", d);
+    svg.appendChild(p);
+    return p;
+  }
+
+  en.lsCurve = curve(Els, "var(--cyan)");
+  en.hsCurve = curve(Ehs, "var(--amber)");
+
+  en.markerLine = svgEl("line", { x1: 0, y1: PLOT.top, x2: 0, y2: PLOT.bottom });
+  en.markerLine.style.stroke = "var(--text)";
+  en.markerLine.setAttribute("stroke-width", 1);
+  en.markerLine.style.opacity = 0.5;
+  svg.appendChild(en.markerLine);
+
+  en.markerDot = svgEl("circle", { r: 4 });
+  en.markerDot.style.fill = "var(--text)";
+  svg.appendChild(en.markerDot);
+}
+
+function renderEnergy(x) {
+  const px = ex(x);
+  en.markerLine.setAttribute("x1", px);
+  en.markerLine.setAttribute("x2", px);
+  const eFund = Math.min(Ehs(x), Els(x));
+  en.markerDot.setAttribute("cx", px);
+  en.markerDot.setAttribute("cy", ey(eFund));
+}
+
+/* ----- readouts + orchestration ----- */
+function updateReadouts(s) {
+  document.getElementById("scoR").textContent = scoX.toFixed(3);
+  document.getElementById("scoDq").textContent = Math.round(s.Dq);
+  document.getElementById("scoDo").textContent = Math.round(s.dO);
+  document.getElementById("scoDe").textContent = Math.round(s.dE);
+  document.getElementById("scoNhs").textContent = Math.round(s.nHS * 100) + "%";
+  document.getElementById("scoT").textContent = scoT;
+}
+
+function updateSco() {
+  const s = computeSco(scoX, scoT);
+  renderOrbitals(s.Dq, s.nHS);
+  renderEnergy(scoX);
+  updateReadouts(s);
+}
+
+function setScoX(x) {
+  scoX = x;
+  const slider = document.getElementById("scoSliderR");
+  if (slider && document.activeElement !== slider) slider.value = x;
+  updateSco();
+}
+
+function setScoPlayLabel() {
+  const btn = document.getElementById("scoPlay");
+  if (!btn) return;
+  const dict = translations[currentLang()] || translations.en;
+  btn.textContent = scoPlaying ? dict["sco.pause"] : dict["sco.play"];
+}
+
+function tick(now) {
+  const period = 6000;
+  const ph = ((now - scoT0) % period) / period;
+  const x = SCO.xMin + (SCO.xMax - SCO.xMin) * (0.5 - 0.5 * Math.cos(ph * 2 * Math.PI));
+  setScoX(x);
+  scoRaf = requestAnimationFrame(tick);
+}
+
+document.getElementById("scoSliderR").addEventListener("input", (e) => setScoX(parseFloat(e.target.value)));
+document.getElementById("scoSliderT").addEventListener("input", (e) => {
+  scoT = parseFloat(e.target.value);
+  updateSco();
+});
+document.getElementById("scoPlay").addEventListener("click", () => {
+  scoPlaying = !scoPlaying;
+  if (scoPlaying) {
+    scoT0 = performance.now();
+    scoRaf = requestAnimationFrame(tick);
+  } else if (scoRaf) {
+    cancelAnimationFrame(scoRaf);
+    scoRaf = null;
+  }
+  setScoPlayLabel();
+});
+
+/* ----- init ----- */
+buildOrbitals();
+buildEnergy();
+setScoX(SCO.xc);
 applyLang(currentLang());

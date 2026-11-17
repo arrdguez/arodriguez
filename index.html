@@ -100,6 +100,37 @@
       </div>
     </section>
 
+    <section id="sco" class="section">
+      <p class="eyebrow mono reveal" data-i18n="sco.eyebrow">Interactive — Spin crossover</p>
+      <h2 class="reveal" data-i18n="sco.title">Fe(II): high spin ↔ low spin</h2>
+      <p class="sco-desc reveal" data-i18n="sco.desc">Drag the Fe–N distance to see how the ligand field drives the spin transition.</p>
+
+      <div class="sco-grid reveal">
+        <div class="sco-panel">
+          <svg id="scoOrbitals" viewBox="0 0 260 280" role="img" aria-label="d-orbital diagram"></svg>
+          <div class="sco-state mono" id="scoState">HS · S = 2</div>
+        </div>
+        <div class="sco-panel">
+          <svg id="scoEnergy" viewBox="0 0 340 240" role="img" aria-label="energy diagram"></svg>
+        </div>
+      </div>
+
+      <div class="sco-readouts mono reveal">
+        <div><span data-i18n="sco.r">r / r₀</span><strong id="scoR">1.084</strong></div>
+        <div><span>Dq</span><strong id="scoDq">1000</strong><em>cm⁻¹</em></div>
+        <div><span>Δo</span><strong id="scoDo">10000</strong><em>cm⁻¹</em></div>
+        <div><span>ΔE</span><strong id="scoDe">0</strong><em>cm⁻¹</em></div>
+        <div><span>n(HS)</span><strong id="scoNhs">50%</strong></div>
+        <div><span>T</span><strong id="scoT">300</strong><em>K</em></div>
+      </div>
+
+      <div class="sco-controls reveal">
+        <label class="mono"><span data-i18n="sco.labelR">Fe–N distance</span><input type="range" id="scoSliderR" min="0.85" max="1.35" step="0.005" value="1.084"></label>
+        <label class="mono"><span data-i18n="sco.labelT">Temperature</span><input type="range" id="scoSliderT" min="10" max="1000" step="5" value="300"></label>
+        <button type="button" id="scoPlay" class="mono">Play</button>
+      </div>
+    </section>
+
     <section id="projects" class="section">
       <p class="eyebrow mono reveal" data-i18n="projects.eyebrow">03 — Selected work</p>
       <h2 class="reveal" data-i18n="projects.title">Things I've built.</h2>
