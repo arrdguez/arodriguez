@@ -9,7 +9,7 @@
   --violet: #8b5cf6;
   --cyan: #22d3ee;
   --amber: #f5b544;
-  --spectrum: linear-gradient(90deg, #ef4444, #f97316, #f5b544, #22c55e, #22d3ee, #8b5cf6);
+  --spectrum: linear-gradient(90deg, #f5b544, #f97316, #ef4444);
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
