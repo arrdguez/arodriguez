@@ -360,9 +360,9 @@ a {
   margin-bottom: 1.5rem;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 900px) {
   .sco-grid {
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 0.9fr 1.3fr 1fr;
   }
 }
 

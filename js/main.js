@@ -452,6 +452,89 @@ function renderEnergy(x) {
   en.markerDot.setAttribute("cy", ey(eFund));
 }
 
+/* ----- HS fraction vs distance ----- */
+const frac = { curve: null, markerLine: null, markerDot: null };
+
+function fx(x) {
+  return 44 + ((x - SCO.xMin) / (SCO.xMax - SCO.xMin)) * (308 - 44);
+}
+function fy(n) {
+  return 206 - n * (206 - 20);
+}
+function nHSof(x, T) {
+  const dE = 30000 * Math.pow(x, -5) - 20000;
+  return 1 / (1 + Math.exp(Math.min(dE / (SCO.kB * T), 700)));
+}
+
+function buildFraction() {
+  const svg = document.getElementById("scoFraction");
+
+  const ay = svgEl("line", { x1: 44, y1: 20, x2: 44, y2: 206 });
+  ay.style.stroke = "var(--muted)";
+  svg.appendChild(ay);
+  const ax = svgEl("line", { x1: 44, y1: 206, x2: 308, y2: 206 });
+  ax.style.stroke = "var(--muted)";
+  svg.appendChild(ax);
+
+  const mid = svgEl("line", { x1: 44, y1: fy(0.5), x2: 308, y2: fy(0.5) });
+  mid.style.stroke = "var(--muted)";
+  mid.setAttribute("stroke-dasharray", "3 4");
+  svg.appendChild(mid);
+
+  [[0, "0%"], [0.5, "50%"], [1, "100%"]].forEach(([n, lbl]) => {
+    const t = svgEl("text", { x: 39, y: fy(n) + 4, "text-anchor": "end", "font-size": 10 });
+    t.style.fill = "var(--muted)";
+    t.textContent = lbl;
+    svg.appendChild(t);
+  });
+
+  [0.9, 1.0, 1.1, 1.2, 1.3].forEach((v) => {
+    const t = svgEl("text", { x: fx(v), y: 221, "text-anchor": "middle", "font-size": 10 });
+    t.style.fill = "var(--muted)";
+    t.textContent = v.toFixed(1);
+    svg.appendChild(t);
+  });
+
+  const xc = svgEl("line", { x1: fx(SCO.xc), y1: 20, x2: fx(SCO.xc), y2: 206 });
+  xc.style.stroke = "var(--muted)";
+  xc.setAttribute("stroke-dasharray", "3 4");
+  svg.appendChild(xc);
+
+  const yl = svgEl("text", { x: 8, y: 16, "font-size": 11 });
+  yl.style.fill = "var(--muted)";
+  yl.textContent = "n(HS)";
+  svg.appendChild(yl);
+
+  frac.curve = svgEl("path", { fill: "none", "stroke-width": 2 });
+  frac.curve.style.stroke = "var(--amber)";
+  svg.appendChild(frac.curve);
+
+  frac.markerLine = svgEl("line", { x1: 0, y1: 20, x2: 0, y2: 206 });
+  frac.markerLine.style.stroke = "var(--text)";
+  frac.markerLine.style.opacity = 0.5;
+  svg.appendChild(frac.markerLine);
+
+  frac.markerDot = svgEl("circle", { r: 4 });
+  frac.markerDot.style.fill = "var(--text)";
+  svg.appendChild(frac.markerDot);
+}
+
+function renderFraction(x, T, nHS) {
+  let d = "";
+  for (let i = 0; i <= 80; i++) {
+    const xx = SCO.xMin + ((SCO.xMax - SCO.xMin) * i) / 80;
+    const yy = fy(nHSof(xx, T));
+    d += (i ? "L" : "M") + fx(xx).toFixed(1) + " " + yy.toFixed(1);
+  }
+  frac.curve.setAttribute("d", d);
+
+  const px = fx(x);
+  frac.markerLine.setAttribute("x1", px);
+  frac.markerLine.setAttribute("x2", px);
+  frac.markerDot.setAttribute("cx", px);
+  frac.markerDot.setAttribute("cy", fy(nHS));
+}
+
 /* ----- readouts + orchestration ----- */
 function updateReadouts(s) {
   document.getElementById("scoR").textContent = scoX.toFixed(3);
@@ -466,6 +549,7 @@ function updateSco() {
   const s = computeSco(scoX, scoT);
   renderOrbitals(s.Dq, s.nHS);
   renderEnergy(scoX);
+  renderFraction(scoX, scoT, s.nHS);
   updateReadouts(s);
 }
 
@@ -511,5 +595,6 @@ document.getElementById("scoPlay").addEventListener("click", () => {
 /* ----- init ----- */
 buildOrbitals();
 buildEnergy();
+buildFraction();
 setScoX(SCO.xc);
 applyLang(currentLang());
